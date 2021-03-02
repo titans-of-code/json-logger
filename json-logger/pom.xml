@@ -8,36 +8,55 @@
     <artifactId>json-logger</artifactId>
     <version>2.0.1</version>
     <packaging>mule-extension</packaging>
-    <name>JSON Logger - Mule 4</name>
+    <name>JSON Logger</name>
 
     <parent>
         <groupId>org.mule.extensions</groupId>
         <artifactId>mule-modules-parent</artifactId>
-        <version>1.1.1</version>
+        <version>1.2.1</version>
     </parent>
+	
+	<!-- Maven command for checking latest versions: mvn versions:display-dependency-updates 
+			Mule Maven repo for looking up latest versions: https://repository.mulesoft.org/nexus/content/repositories/releases/ -->
+	
+	<properties>
+		<maven.install.plugin.version>2.5.2</maven.install.plugin.version>
+		<maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>
+		<jsonschema2pojo.verson>0.4.35</jsonschema2pojo.verson>
+		<mule.jsonschema2pojo.version>1.2.0</mule.jsonschema2pojo.version>
+		<jackson.databind.version>2.10.3</jackson.databind.version>
+		<common.lang.version>2.6</common.lang.version>
+		<common.beanutils.version>1.9.4</common.beanutils.version>
+		<joda.time.version>2.10.5</joda.time.version>
+		<jsonpath.version>2.4.0</jsonpath.version>
+		<disruptor.version>3.4.2</disruptor.version>
+		<jms.connector.version>1.7.1</jms.connector.version>
+		<amq.connector.version>1.6.4</amq.connector.version>
+		<amq.rest.module.version>3.1.3</amq.rest.module.version>
+	</properties>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
-                <version>2.5.2</version>
+                <version>${maven.install.plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
+                <version>${maven.deploy.plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.jsonschema2pojo</groupId>
                 <artifactId>jsonschema2pojo-maven-plugin</artifactId>
-                <version>0.4.35</version>
+                <version>${jsonschema2pojo.verson}</version>
                 <dependencies>
                     <dependency>
                         <groupId>io.github.mulesoft-consulting</groupId>
                         <artifactId>jsonschema2pojo-mule-annotations</artifactId>
-                        <version>1.2.0</version>
-                        <scope>compile</scope>
+                        <version>${mule.jsonschema2pojo.version}</version>
+						<scope>compile</scope>
                     </dependency>
                 </dependencies>
                 <configuration>
@@ -45,6 +64,7 @@
                     <sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
                     <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
                     <targetPackage>org.mule.extension.jsonlogger.api.pojos</targetPackage>
+					<!--<usePrimitives>true</usePrimitives>-->
                 </configuration>
                 <executions>
                     <execution>
@@ -57,55 +77,46 @@
         </plugins>
     </build>
 
-    <distributionManagement>
-        <!-- Target Anypoint Organization Repository -->
-        <repository>
-            <id>Exchange2</id>
-            <name>Exchange2 Repository</name>
-            <url>https://maven.anypoint.mulesoft.com/api/v1/organizations/${project.groupId}/maven</url>
-            <layout>default</layout>
-        </repository>
-    </distributionManagement>
-
     <dependencies>
-        <dependency>
+		<dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.10.3</version>
+            <version>${jackson.databind.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
+            <version>${common.lang.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.9.4</version>
+            <version>${common.beanutils.version}</version>
         </dependency>
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.10.5</version>
+            <version>${joda.time.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mule.connectors</groupId>
             <artifactId>mule-jms-connector</artifactId>
-            <version>1.6.3</version>
+            <version>${jms.connector.version}</version>
             <classifier>mule-plugin</classifier>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.mulesoft.connectors</groupId>
             <artifactId>mule-amqp-connector</artifactId>
-            <version>1.6.0</version>
+            <version>${amq.connector.version}</version>
             <classifier>mule-plugin</classifier>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.mulesoft.muleesb.modules</groupId>
             <artifactId>anypoint-mq-rest-client</artifactId>
-            <version>3.1.0</version>
+            <version>${amq.rest.module.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>async-http-client</artifactId>
@@ -117,7 +128,7 @@
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
-            <version>2.4.0</version>
+            <version>${jsonpath.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -128,16 +139,17 @@
         <dependency>
             <groupId>com.lmax</groupId>
             <artifactId>disruptor</artifactId>
-            <version>3.4.2</version>
+            <version>${disruptor.version}</version>
         </dependency>
     </dependencies>
-    <repositories>
-        <!-- Shared Mule Services Repository -->
-        <repository>
-            <id>Exchange2</id>
-            <name>Exchange2 Repository</name>
-            <url>https://maven.anypoint.mulesoft.com/api/v1/organizations/${project.groupId}/maven</url>
-            <layout>default</layout>
-        </repository>
-    </repositories>
+	
+	<distributionManagement>
+		<!-- Target Anypoint Organization Repository -->
+		<repository>
+			<id>anypoint-exchange</id>
+			<name>Anypoint Exchange</name>
+			<url>https://maven.anypoint.mulesoft.com/api/v1/organizations/ORG_ID_TOKEN/maven</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
 </project>
