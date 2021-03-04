@@ -5,7 +5,7 @@ Drop-in replacement for default Mule Logger that outputs a JSON structure based 
 This supports a comprehensive Mule logging strategy as briefly described in **Logging Patterns** section below.
 
 This component is described in JSON Logger blog [post 1](https://blogs.mulesoft.com/dev/anypoint-platform-dev/json-logging-in-mule-4-getting-the-most-out-of-your-logs/) and [post 2](https://blogs.mulesoft.com/dev/api-dev/json-logging-in-mule-4/).
-Original code is available at [JSON Logger Git project](https://github.com/mulesoft-consulting/json-logger).
+Original code is available at [JSON Logger Git project][json-logger].
 
 ## Features
 
@@ -152,3 +152,16 @@ It takes the parameters below.
 # Dependencies
 
 Depends on the `jsonschema2pojo-mule-annotations` jar, which is a custom extension to the `jsonschema2pojo` plugin for the SDK.  This is provided as a maven dependency that is publicly  available.
+
+# Synchronizing Updates
+This repository corresponds with the `json-logger` subfolder of the [JSON Logger public repo][json-logger].  Desired changes from that repo and subfolder should be merged into this periodically.  Make sure to use the branch that corresponds to the latest mule version.
+The main changed files are listed below.
+
+- `README.md`: specific readme for component and updates
+- `build.sh`: build script for locally installing component or deploying into a specific Business Group in Anypoint
+- `pom.xml`: updated dependencies and specific distribution management
+- `src/main/resources/schema/loggerConfig.json`: changed based on preference/ease of use
+- `src/main/resources/schema/loggerProcessor.json`: changed fields to conform to comprehensive logging strategy
+
+
+[json-logger]: https://github.com/mulesoft-consulting/json-logger
