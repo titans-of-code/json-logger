@@ -16,12 +16,11 @@
         <version>1.4.2</version>
     </parent>
     
-    <!-- Maven command for checking latest versions: mvn versions:display-dependency-updates 
+    <!-- Maven command for checking the latest versions: mvn versions:display-dependency-updates
             Mule Maven repo for looking up latest versions: https://repository.mulesoft.org/nexus/content/repositories/releases/ -->
     
     <properties>
         <!-- Override parent pom versions -->
-        <maven.compiler.release>11</maven.compiler.release>
         <log4jVersion>2.19.0</log4jVersion>
         <munit.version>2.3.15</munit.version>
         <guava.version>31.1-jre</guava.version>
