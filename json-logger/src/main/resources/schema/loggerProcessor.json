@@ -1,76 +1,86 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "description": "Definition for fields used in the logger message processor",
-  "type": "object",
-  "properties": {
-    "correlationId": {
-      "type": "string",
-      "sdk": {
-        "default": "#[correlationId]",
-        "placement": {
-          "tab": "Advanced"
-        }
-      }
-    },
-    "message": {
-      "type": "string",
-      "sdk": {
-        "example": "Add a log message",
-        "required": true,
-        "summary": "Message to be logged"
-      }
-    },
-    "content": {
-      "type": "string",
-      "javaType": "org.mule.runtime.extension.api.runtime.parameter.ParameterResolver<org.mule.runtime.api.metadata.TypedValue<java.io.InputStream>>",
-      "sdk": {
-        "default": "#[import modules::JSONLoggerModule output application/json ---\n{\n    payload: JSONLoggerModule::stringifyNonJSON(payload) \n}]",
-        "summary": "NOTE: Writing the entire payload every time across your application can cause serious performance issues",
-        "required": false,
-        "isContent": true
-      }
-    },
-    "tracePoint": {
-      "type": "string",
-      "javaType": "org.mule.extension.jsonlogger.api.pojos.TracePoint",
-      "enum": [
-        "START",
-        "BEFORE_TRANSFORM",
-        "AFTER_TRANSFORM",
-        "BEFORE_REQUEST",
-        "AFTER_REQUEST",
-        "FLOW",
-        "END",
-        "EXCEPTION"
-      ],
-      "sdk": {
-        "default": "START",
-        "summary": "Current processing stage"
-      }
-    },
-    "priority": {
-      "type": "string",
-      "javaType": "org.mule.extension.jsonlogger.api.pojos.Priority",
-      "enum": [
-        "DEBUG",
-        "TRACE",
-        "INFO",
-        "WARN",
-        "ERROR"
-      ],
-      "sdk": {
-        "default": "INFO",
-        "summary": "Logger priority"
-      },
-      "note": "This field is mandatory. DON'T REMOVE"
-    },
-    "category": {
-      "type": "string",
-      "sdk": {
-        "required": false,
-        "summary": "If not set, by default will log to the org.mule.extension.jsonlogger.JsonLogger category"
-      },
-      "note": "This field is mandatory. DON'T REMOVE"
-    }
-  }
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"description": "Definition for fields used in the logger message processor",
+	"type": "object",
+	"properties": {
+		"correlationId": {
+			"type": "string",
+			"sdk": {
+				"default": "#[correlationId]",
+				"placement": {
+					"tab": "Advanced"
+				}
+			}
+		},
+		"priority": {
+			"type": "string",
+			"javaType": "org.mule.extension.jsonlogger.api.pojos.Priority",
+			"enum": [
+				"DEBUG",
+				"TRACE",
+				"INFO",
+				"WARN",
+				"ERROR"
+			],
+			"sdk": {
+				"default": "DEBUG",
+				"summary": "Logger priority"
+			},
+			"note": "This field is mandatory. DON'T REMOVE"
+		},
+		"tracePoint": {
+			"type": "string",
+			"javaType": "org.mule.extension.jsonlogger.api.pojos.TracePoint",
+			"enum": [
+				"START",
+				"END",
+				"BEFORE_TRANSFORM",
+				"AFTER_TRANSFORM",
+				"BEFORE_CONNECTOR",
+				"AFTER_CONNECTOR",
+				"FLOW_CONTROL",
+				"EVENT",
+				"ERROR"
+			],
+			"sdk": {
+				"displayName": "Trace Point",
+				"default": "EVENT",
+				"summary": "Current processing stage"
+			}
+		},		
+		"category": {
+			"type": "string",
+			"sdk": {
+				"required": false,
+				"summary": "If not set, by default will log to the org.mule.extension.jsonlogger.JsonLogger category"
+			},
+			"note": "This field is mandatory. DON'T REMOVE"
+		},
+		"referenceName": {
+			"type": "string",
+			"sdk": {
+				"displayName": "Reference Name",
+				"example": "Add name of component, scope, or flow control",
+				"required": false,
+				"summary": "Name of component, scope, or flow control that this logger references"
+			}
+		},
+		"message": {
+			"type": "string",
+			"sdk": {
+				"example": "Add a log message",
+				"required": false,
+				"summary": "Message to be logged"
+			}
+		},		
+		"content": {
+			"type": "string",
+			"javaType": "org.mule.runtime.extension.api.runtime.parameter.ParameterResolver<org.mule.runtime.api.metadata.TypedValue<java.io.InputStream>>",
+			"sdk": {
+				"summary": "NOTE: Writing the entire payload every time across your application can cause serious performance issues.  Also please use stringify modules in JSON Logger: import modules::JSONLoggerModule",
+				"required": false,
+				"isContent": true
+			}
+		}
+	}
 }

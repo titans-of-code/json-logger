@@ -23,8 +23,7 @@
         "environment": {
           "type": "string",
           "sdk": {
-            "required": true,
-            "example": "${mule.env}",
+            "default": "${mule.env}",
             "summary": "Name of the Mule Environment where the application is running. Recommendation: This value should be based on external property"
           }
         }

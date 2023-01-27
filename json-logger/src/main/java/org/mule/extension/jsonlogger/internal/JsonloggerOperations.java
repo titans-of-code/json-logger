@@ -239,8 +239,8 @@ public class JsonloggerOperations {
     /**
      * Log scope
      */
+	@MediaType(value =  "*/*", strict = false)
     @Execution(ExecutionType.BLOCKING)
-    @MediaType("application/json")
     public void loggerScope(@DisplayName("Module configuration") @Example("JSON_Logger_Config") @Summary("Indicate which Global config should be associated with this Scope.") String configurationRef,
                             @Optional(defaultValue="INFO") Priority priority,
                             @Optional(defaultValue="OUTBOUND_REQUEST_SCOPE") ScopeTracePoint scopeTracePoint,
