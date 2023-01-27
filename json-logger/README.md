@@ -16,6 +16,7 @@ Original code is available at [JSON Logger Git project][json-logger].
 - Once configured, requires about the same effort to use as the built-in Logger.
 - The `content` field that prints payload and attributes, can be nested JSON or a JSON-escaped string.  Defaults to nested JSON.
 - The `content` field can be data masked.
+- The `Flow Metadata` field allows for important info that should be in each logger that is static for the specific flow execution, such as route (URI path or message topic). 
 
 # Installation
 
@@ -51,8 +52,6 @@ Add loggers to every flow set to INFO that track the import events as the messag
 
 - Flow Start
 - Flow End
-- Before Connector (external endpoint)
-- After Connector (external endpoint)
 
 Note that event loggers contain a MINIMAL message, just enough to provide relevant information for operators to track the specific event that is not covered by the automatic fields, such as a policy number and customer name.  They can also have empty messages.  These are NOT for debugging payloads.  Significant amount of data, including payloads, should be logged with the debug logger instead since those will not be running in Production.  Sensitive data should not be logged.
 
