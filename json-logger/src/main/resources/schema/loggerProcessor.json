@@ -34,11 +34,6 @@
 			"enum": [
 				"START",
 				"END",
-				"BEFORE_TRANSFORM",
-				"AFTER_TRANSFORM",
-				"BEFORE_CONNECTOR",
-				"AFTER_CONNECTOR",
-				"FLOW_CONTROL",
 				"EVENT",
 				"ERROR"
 			],
@@ -56,13 +51,14 @@
 			},
 			"note": "This field is mandatory. DON'T REMOVE"
 		},
-		"referenceName": {
+		"flow": {
 			"type": "string",
+			"javaType": "org.mule.runtime.extension.api.runtime.parameter.ParameterResolver<org.mule.runtime.api.metadata.TypedValue<java.io.InputStream>>",
 			"sdk": {
-				"displayName": "Reference Name",
-				"example": "Add name of component, scope, or flow control",
-				"required": false,
-				"summary": "Name of component, scope, or flow control that this logger references"
+				"displayName": "Flow Metadata",
+				"default": "#[vars.flowMetadata]",
+				"required": true,
+				"summary": "Provides important fields for logging and analytics, which are static for the flow."
 			}
 		},
 		"message": {
