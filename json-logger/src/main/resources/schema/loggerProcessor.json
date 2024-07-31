@@ -1,0 +1,83 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"description": "Definition for fields used in the logger message processor",
+	"type": "object",
+	"properties": {
+		"correlationId": {
+			"type": "string",
+			"sdk": {
+				"default": "#[correlationId]",
+				"placement": {
+					"tab": "Advanced"
+				}
+			}
+		},
+		"priority": {
+			"type": "string",
+			"javaType": "org.mule.extension.jsonlogger.api.pojos.Priority",
+			"enum": [
+				"DEBUG",
+				"TRACE",
+				"INFO",
+				"WARN",
+				"ERROR"
+			],
+			"sdk": {
+				"default": "DEBUG",
+				"summary": "Logger priority"
+			},
+			"note": "This field is mandatory. DON'T REMOVE"
+		},
+		"tracePoint": {
+			"type": "string",
+			"javaType": "org.mule.extension.jsonlogger.api.pojos.TracePoint",
+			"enum": [
+				"START",
+				"END",
+				"EVENT",
+				"ERROR"
+			],
+			"sdk": {
+				"displayName": "Trace Point",
+				"default": "EVENT",
+				"summary": "Current processing stage"
+			}
+		},		
+		"category": {
+			"type": "string",
+			"sdk": {
+				"required": false,
+				"summary": "If not set, by default will log to the org.mule.extension.jsonlogger.JsonLogger category"
+			},
+			"note": "This field is mandatory. DON'T REMOVE"
+		},
+		"metadata": {
+			"type": "string",
+			"javaType": "org.mule.runtime.extension.api.runtime.parameter.ParameterResolver<org.mule.runtime.api.metadata.TypedValue<java.io.InputStream>>",
+			"sdk": {
+				"displayName": "Flow Metadata",
+				"default": "#[vars.flowMetadata]",
+				"required": true,
+				"isContent": true,
+				"summary": "Provides important fields for logging and analytics, which are static for the flow."
+			}
+		},
+		"message": {
+			"type": "string",
+			"sdk": {
+				"example": "Add a log message",
+				"required": false,
+				"summary": "Message to be logged"
+			}
+		},		
+		"content": {
+			"type": "string",
+			"javaType": "org.mule.runtime.extension.api.runtime.parameter.ParameterResolver<org.mule.runtime.api.metadata.TypedValue<java.io.InputStream>>",
+			"sdk": {
+				"summary": "NOTE: Writing the entire payload every time across your application can cause serious performance issues.  Also please use stringify modules in JSON Logger: import modules::JSONLoggerModule",
+				"required": false,
+				"isContent": true
+			}
+		}
+	}
+}
