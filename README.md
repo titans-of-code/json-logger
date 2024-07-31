@@ -1,7 +1,7 @@
 # JSON Logger - Mule 4
 > Forked from [mulesoft-consulting/json-logger](https://github.com/mulesoft-consulting/json-logger), which has been archived.
 > This version is vanilla with small modifications the JSON log format.
-> See ./json-logger/README.md for details on the JSON Logger component.
+> See [README in json-logger subfolder](./json-logger/README.md) for details on the JSON Logger component.
 
 Drop-in replacement for default Mule Logger that outputs a JSON structure based on a predefined JSON schema.
 
