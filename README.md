@@ -1,4 +1,7 @@
 # JSON Logger - Mule 4
+> Forked from [mulesoft-consulting/json-logger](https://github.com/mulesoft-consulting/json-logger), which has been archived.
+> This version is vanilla with small modifications the JSON log format.
+> See ./json-logger/README.md for details on the JSON Logger component.
 
 Drop-in replacement for default Mule Logger that outputs a JSON structure based on a predefined JSON schema.
 
@@ -47,12 +50,10 @@ PS2. For EU Control Plane deployment you have to modify the `<distributionManage
 </distributionManagement>
 ```
 
-##  Release notes [HERE](https://github.com/mulesoft-consulting/json-logger/blob/mule-4.x/json-logger/README.md)
-
 ## Author
 
-* **Andres Ramirez** [Slack: @andres.ramirez / Email: andres.ramirez@mulesoft.com]
+Original Author but no longer maintaining: **Andres Ramirez**
 
 ## Support disclaimer
 
-In case you haven't noticed the type of license for the source code, this is provided as a side project under MIT open source license which means it won't be officially supported by MuleSoft as it is considered a custom connector. 
+In case you haven't noticed the type of license for the source code, this is provided as a side project under MIT open source license which means it won't be officially supported by MuleSoft as it is considered a custom connector.
