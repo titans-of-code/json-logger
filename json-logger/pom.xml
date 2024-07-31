@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ORG_ID_TOKEN</groupId>
+	<artifactId>json-logger</artifactId>
+	<version>2.2.0</version>
+	<packaging>mule-extension</packaging>
+	<name>JSON Logger</name>
+
+	<parent>
+		<groupId>org.mule.extensions</groupId>
+		<artifactId>mule-modules-parent</artifactId>
+		<version>1.4.2</version>
+	</parent>
+
+	<!-- Maven command for checking the latest versions: mvn versions:display-dependency-updates 
+		Mule Maven repo for looking up latest versions: https://repository.mulesoft.org/nexus/content/repositories/releases/ -->
+
+	<properties>
+		<!-- Override parent pom versions -->
+		<log4jVersion>2.19.0</log4jVersion>
+		<guava.version>31.1-jre</guava.version>
+		<cglib.version>3.3.0</cglib.version>
+		<javax.activation.version>2.0.1</javax.activation.version>
+		<mule.app.plugins.maven.plugin.version>1.7.0</mule.app.plugins.maven.plugin.version>
+		<munit.version>2.3.15</munit.version>
+		<munit.extensions.maven.plugin.version>1.1.2</munit.extensions.maven.plugin.version>
+
+		<skipJavaTests>true</skipJavaTests>
+
+		<!-- Local versions -->
+		<maven.install.plugin.version>2.5.2</maven.install.plugin.version>
+		<maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>
+		<jsonschema2pojo.verson>0.4.35</jsonschema2pojo.verson>
+		<mule.jsonschema2pojo.version>1.2.0</mule.jsonschema2pojo.version>
+		<jackson.databind.version>2.13.4.2</jackson.databind.version>
+		<snakeyaml.version>1.32</snakeyaml.version>
+		<orgjson.version>20180130</orgjson.version>
+		<common.compress.version>1.8.1</common.compress.version>
+		<common.lang.version>2.6</common.lang.version>
+		<common.beanutils.version>1.9.4</common.beanutils.version>
+		<joda.time.version>2.10.5</joda.time.version>
+		<jsonpath.version>2.7.0</jsonpath.version>
+		<disruptor.version>3.4.2</disruptor.version>
+		<gson.version>2.8.9</gson.version>
+		<jms.connector.version>1.8.7</jms.connector.version>
+		<amqp.connector.version>1.7.4</amqp.connector.version>
+		<amq.rest.module.version>3.1.3</amq.rest.module.version>
+	</properties>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>${maven.install.plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>${maven.deploy.plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.jsonschema2pojo</groupId>
+				<artifactId>jsonschema2pojo-maven-plugin</artifactId>
+				<version>${jsonschema2pojo.verson}</version>
+				<dependencies>
+					<dependency>
+						<groupId>io.github.mulesoft-consulting</groupId>
+						<artifactId>jsonschema2pojo-mule-annotations</artifactId>
+						<version>${mule.jsonschema2pojo.version}</version>
+						<scope>compile</scope>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<customAnnotator>org.mule.custom.annotation.utils.CustomMuleAnnotator</customAnnotator>
+					<sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
+					<outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
+					<targetPackage>org.mule.extension.jsonlogger.api.pojos</targetPackage>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+			<version>${common.compress.version}</version>
+		</dependency>
+		<dependency>
+			<artifactId>snakeyaml</artifactId>
+			<groupId>org.yaml</groupId>
+			<version>${snakeyaml.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>${orgjson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.databind.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${common.lang.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${common.beanutils.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${joda.time.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
+			<version>${disruptor.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-jms-connector</artifactId>
+			<version>${jms.connector.version}</version>
+			<classifier>mule-plugin</classifier>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.connectors</groupId>
+			<artifactId>mule-amqp-connector</artifactId>
+			<version>${amqp.connector.version}</version>
+			<classifier>mule-plugin</classifier>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.muleesb.modules</groupId>
+			<artifactId>anypoint-mq-rest-client</artifactId>
+			<version>${amq.rest.module.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>async-http-client</artifactId>
+					<groupId>com.ning</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-core</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.code.gson</groupId>
+					<artifactId>gson</artifactId>
+				</exclusion>
+			</exclusions>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${gson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>${jsonpath.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+	<distributionManagement>
+		<!-- Target Anypoint Organization Repository -->
+		<repository>
+			<id>anypoint-exchange</id>
+			<name>Anypoint Exchange</name>
+			<url>https://maven.anypoint.mulesoft.com/api/v1/organizations/ORG_ID_TOKEN/maven</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
+</project>
